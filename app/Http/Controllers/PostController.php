@@ -3,12 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Repositories\Interfaces\PostRepositoryInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PostController extends Controller
 {
+    /**
+     * @var PostRepositoryInterface
+     */
+    private PostRepositoryInterface $postsRepository;
+
+    public function __construct(PostRepositoryInterface $postsRepository)
+    {
+        $this->postsRepository = $postsRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +52,8 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string'
         ]);
-        $post = new Post($validatedInputs);
+//        $post = new Post($validatedInputs);
+        $this->postsRepository->create($validatedInputs);
         return redirect('/admin/posts')->with('success_message', 'Post has been created');
     }
 
