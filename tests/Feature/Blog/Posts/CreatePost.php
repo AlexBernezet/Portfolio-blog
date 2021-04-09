@@ -21,9 +21,9 @@ class CreatePost extends TestCase
         $attributes = [
             'title' => 'Title',
             'content' => "lorem ipsum ipsum lorem",
+            'slug' => 'slug-of-article'
         ];
         $response = $this->actingAs($user)->post('/posts', $attributes);
-
-        $response->assertStatus(200);
+        $response->assertRedirect('/admin/posts');
     }
 }
