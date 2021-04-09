@@ -9,9 +9,6 @@ use JetBrains\PhpStorm\Pure;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'title', 'content', 'slug', 'published_at', 'read_time'
-    ];
 
     public function __construct(array $attributes = [])
     {
@@ -31,7 +28,7 @@ class Post extends Model
         $wordsReadPerMinute = 238;
 
 //        return estimated time of read in seconds
-        return round(($wordsCount / $wordsReadPerMinute) * 60, 0);
+        return round($wordsCount / $wordsReadPerMinute / 60, 0);
     }
 
     private function generateSlug(string $title): string
