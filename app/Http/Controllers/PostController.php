@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Interfaces\PostRepositoryInterface;
+use App\Validators\PostValidator;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -53,12 +54,7 @@ class PostController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $validatedInputs = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'published_at' => 'nullable|datetime'
-        ]);
-//        $post = new Post($validatedInputs);
+        $validatedInputs = (new PostValidator)->validate($request);
         $this->postsRepository->create($validatedInputs);
         return redirect('/admin/posts')->with('success_message', 'Post has been created');
     }
@@ -99,11 +95,7 @@ class PostController extends Controller
      */
     public function update(Request $request, int $id): RedirectResponse
     {
-        $validatedInputs = $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'published_at' => 'nullable|datetime'
-        ]);
+        $validatedInputs = (new PostValidator)->validate($request);
         $post = $this->postsRepository->update($validatedInputs, $id);
 
         return Redirect::route("blog.show", $post->slug);
