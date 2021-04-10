@@ -27,5 +27,6 @@ Route::resource('/posts', PostController::class)->only([
 ])->middleware(['auth']);
 
 Route::get('/blog', [PostController::class, 'index']);
+Route::get('/blog/{slug}', [PostController::class, 'show']);
 
 require __DIR__.'/auth.php';

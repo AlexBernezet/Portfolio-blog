@@ -63,12 +63,13 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param string $slug
+     * @return Application|Factory|View
      */
-    public function show(int $id): Response
+    public function show(string $slug): Application|Factory|View
     {
-        //
+        $post = $this->postsRepository->findBySlug($slug);
+        return view('blog.show', compact('post'));
     }
 
     /**
