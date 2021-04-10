@@ -6,9 +6,11 @@ use App\Repositories\Interfaces\PostRepositoryInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redirect;
 
 class PostController extends Controller
 {
@@ -63,12 +65,17 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @param string $slug
+     * @return Application|Factory|View|RedirectResponse
      */
-    public function show(int $id): Response
+    public function show(string $slug): Application|Factory|View|RedirectResponse
     {
-        //
+        $post = $this->postsRepository->findBySlug($slug);
+        if ($post) {
+            return view('blog.show', compact('post'));
+        }
+        return Redirect::route('blog.index');
+
     }
 
     /**

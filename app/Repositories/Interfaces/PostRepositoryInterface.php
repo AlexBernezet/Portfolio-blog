@@ -12,4 +12,6 @@ interface PostRepositoryInterface
     public function create(array $data): Post;
     public function update(array $data, int $id): Post;
     public function getAll(): Collection;
+    public function findBySlug(string $slug): ?Post;
+    public function findById(int $id): ?Post;
 }

@@ -30,4 +30,17 @@ class PostRepository implements PostRepositoryInterface
         $posts = Post::all();
         return $posts;
     }
+
+    public function findBySlug(string $slug): ?Post
+    {
+        $post = Post::where('slug', $slug)->first();
+        Log::info($post);
+        return $post;
+    }
+
+    public function findById(int $id): ?Post
+    {
+        $post = Post::findOrFail($id);
+        return $post;
+    }
 }
