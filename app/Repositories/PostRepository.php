@@ -25,4 +25,9 @@ class PostRepository implements PostRepositoryInterface
         $post = Post::findOrFail($id);
         Log::info($post);
     }
+
+    public function getAll(): Collection {
+        $posts = Post::all();
+        return $posts;
+    }
 }

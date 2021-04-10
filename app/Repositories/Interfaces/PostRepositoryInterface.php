@@ -11,4 +11,5 @@ interface PostRepositoryInterface
 {
     public function create(array $data): Post;
     public function update(array $data, int $id): Post;
+    public function getAll(): Collection;
 }
