@@ -15,11 +15,13 @@ class Post extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->attributes = $attributes;
-        $attributes['read_time'] = $this->calculateReadTime($attributes['content']);
+        if(!empty($attributes)) {
+            $this->attributes = $attributes;
+            $attributes['read_time'] = $this->calculateReadTime($attributes['content']);
 
-        if(!array_key_exists('slug', $attributes)){
-            $attributes['slug'] = $this->generateSlug($attributes["title"]);
+            if(!array_key_exists('slug', $attributes)){
+                $attributes['slug'] = $this->generateSlug($attributes["title"]);
+            }
         }
         parent::__construct($attributes);
     }
