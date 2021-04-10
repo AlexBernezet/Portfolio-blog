@@ -31,14 +31,14 @@ class PostRepository implements PostRepositoryInterface
         return $posts;
     }
 
-    public function findBySlug(string $slug): Post
+    public function findBySlug(string $slug): ?Post
     {
         $post = Post::where('slug', $slug)->first();
         Log::info($post);
         return $post;
     }
 
-    public function findById(int $id): Post
+    public function findById(int $id): ?Post
     {
         $post = Post::findOrFail($id);
         return $post;
