@@ -23,7 +23,8 @@ class PostRepository implements PostRepositoryInterface
     public function update(array $data, int $id): Post
     {
         $post = Post::findOrFail($id);
-        Log::info($post);
+        $post->update($data);
+        return $post;
     }
 
     public function getAll(): Collection {

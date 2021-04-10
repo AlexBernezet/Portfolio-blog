@@ -55,7 +55,8 @@ class PostController extends Controller
     {
         $validatedInputs = $request->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string'
+            'content' => 'required|string',
+            'published_at' => 'nullable|datetime'
         ]);
 //        $post = new Post($validatedInputs);
         $this->postsRepository->create($validatedInputs);
@@ -94,11 +95,18 @@ class PostController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(Request $request, int $id): Response
+    public function update(Request $request, int $id): RedirectResponse
     {
-        //
+        $validatedInputs = $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'published_at' => 'nullable|datetime'
+        ]);
+        $post = $this->postsRepository->update($validatedInputs, $id);
+
+        return Redirect::route("blog.show", $post->slug);
     }
 
     /**
