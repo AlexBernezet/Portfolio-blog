@@ -5,6 +5,7 @@ namespace Tests\Http\Controllers;
 use App\Http\Controllers\PostController;
 use App\Models\Post;
 use App\Models\User;
+use App\Repositories\PostRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -41,5 +42,12 @@ class PostControllerTest extends TestCase
             "content" => "new content",
         ));
         $response->assertRedirect("/blog/{$post->slug}");
+    }
+
+    public function testDestroy(): void {
+        $post = Post::factory()->create();
+        $response = $this->actingAs($this->user)->delete("/posts/{$post->id}");
+        self::assertCount(0, (new PostRepository)->getAll());
+        $response->assertRedirect("/dashboard");
     }
 }

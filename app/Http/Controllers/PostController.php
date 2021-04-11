@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 
 class PostController extends Controller
@@ -105,10 +106,12 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return RedirectResponse
      */
-    public function destroy(int $id): Response
+    public function destroy(int $id): RedirectResponse
     {
-        //
+        Log::info($id);
+        $this->postsRepository->delete($id);
+        return Redirect::route('dashboard');
     }
 }

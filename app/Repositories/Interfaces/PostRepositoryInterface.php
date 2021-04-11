@@ -14,4 +14,5 @@ interface PostRepositoryInterface
     public function getAll(): Collection;
     public function findBySlug(string $slug): ?Post;
     public function findById(int $id): ?Post;
+    public function delete(int $id): bool;
 }

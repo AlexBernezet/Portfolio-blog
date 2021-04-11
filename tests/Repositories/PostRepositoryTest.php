@@ -41,4 +41,11 @@ class PostRepositoryTest extends TestCase
         $post = $this->postRepository->update($updateData, $post->id);
         self::assertEquals($updateData['title'], $post->title);
     }
+
+    public function testDelete(): void {
+        $post = Post::factory()->create();
+        $this->postRepository->delete($post->id);
+        $posts = $this->postRepository->getAll();
+        self::assertCount(0, $posts);
+    }
 }
