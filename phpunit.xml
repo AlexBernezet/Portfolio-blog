@@ -17,6 +17,9 @@
         <testsuite name="Controllers">
             <directory suffix="Test.php">./tests/http/Controllers</directory>
         </testsuite>
+        <testsuite name="Services">
+            <directory suffix="Test.php">./tests/Services</directory>
+        </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true">
         <include>
