@@ -12,6 +12,7 @@ class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    protected bool $softDelete = true;
 
     protected $fillable = [
         'title', 'content', 'slug', 'published_at', 'read_time'

@@ -30,6 +30,7 @@ class PostRepositoryTest extends TestCase
         ];
         $post = $this->postRepository->create($attributes);
         self::assertInstanceOf(Post::class, $post);
+        $this->assertDatabaseCount('posts', 1);
         self::assertEquals(1, $post->read_time);
         self::assertEquals($attributes['title'], $post->title);
         self::assertEquals($attributes['content'], $post->content);
@@ -40,12 +41,12 @@ class PostRepositoryTest extends TestCase
         $updateData = ['title' => "new title"];
         $post = $this->postRepository->update($updateData, $post->id);
         self::assertEquals($updateData['title'], $post->title);
+        $this->assertDatabaseHas('posts', ['title' => 'new title']);
     }
 
     public function testDelete(): void {
         $post = Post::factory()->create();
         $this->postRepository->delete($post->id);
-        $posts = $this->postRepository->getAll();
-        self::assertCount(0, $posts);
+        $this->assertSoftDeleted('posts', ['id' => $post->id]);
     }
 }

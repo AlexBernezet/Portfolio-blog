@@ -16,6 +16,7 @@ class PostRepository implements PostRepositoryInterface
     public function create(array $data): Post
     {
         $post = new Post($data);
+        $post->save();
         return $post;
 
     }
