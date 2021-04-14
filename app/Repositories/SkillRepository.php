@@ -14,4 +14,11 @@ class SkillRepository
         $skill->save();
         return $skill;
     }
+
+    public function update(array $updateData, mixed $id): Skill
+    {
+        $skill = Skill::find($id);
+        $skill->update($updateData);
+        return $skill;
+    }
 }

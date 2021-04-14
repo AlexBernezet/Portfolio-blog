@@ -41,4 +41,11 @@ class SkillRepositoryTest extends TestCase
         $this->assertDatabaseCount('skills', 1);
 
     }
+
+    public function testUpdate(): void {
+        $skill = Skill::factory()->create();
+        $updateData = ['name' => "Laravel"];
+        $this->skillRepository->update($updateData, $skill->id);
+        $this->assertDatabaseHas('skills', ['name' => $updateData['name']]);
+    }
 }
