@@ -11,11 +11,16 @@ class CreateSkillsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->unique();
+            $table->integer('position')->unique();
+            $table->boolean('is_bold')->default(false);
+            $table->string('type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -24,7 +29,7 @@ class CreateSkillsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('skills');
     }
