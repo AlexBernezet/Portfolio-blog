@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Models\Skill;
+use Illuminate\Database\Eloquent\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class SkillRepository
@@ -21,4 +22,14 @@ class SkillRepository
         $skill->update($updateData);
         return $skill;
     }
+
+    public function getAll(): Collection {
+        $skills = Skill::all();
+        return $skills;
+    }
+
+    public function delete(int $id): bool {
+        return Skill::find($id)->delete();
+    }
+
 }

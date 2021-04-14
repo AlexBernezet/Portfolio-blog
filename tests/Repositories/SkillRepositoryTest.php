@@ -48,4 +48,16 @@ class SkillRepositoryTest extends TestCase
         $this->skillRepository->update($updateData, $skill->id);
         $this->assertDatabaseHas('skills', ['name' => $updateData['name']]);
     }
+
+    public function testDelete(): void {
+        $skill = Skill::factory()->create();
+        $this->skillRepository->delete($skill->id);
+        $this->assertDatabaseMissing('skills', $skill->toArray());
+    }
+
+    public function testGetAll(): void {
+        Skill::factory(3)->create();
+        $skills = $this->skillRepository->getAll();
+        self::assertCount(3, $skills);
+    }
 }
