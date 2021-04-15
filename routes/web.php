@@ -26,6 +26,10 @@ Route::resource('/posts', PostController::class)->only([
     'create', 'store', 'update', 'destroy'
 ])->middleware(['auth']);
 
+Route::resource('/skills', PostController::class)->only([
+    'create', 'store', 'update', 'destroy'
+])->middleware(['auth']);
+
 Route::get('/blog', [PostController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [PostController::class, 'show'])->name('blog.show');
 

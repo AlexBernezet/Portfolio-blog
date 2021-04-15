@@ -2,83 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Skill;
+use App\Repositories\Interfaces\SkillRepositoryInterface;
+use App\Validators\SkillValidator;
 use Illuminate\Http\Request;
+use JetBrains\PhpStorm\Pure;
 
 class SkillController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @var SkillRepositoryInterface
      */
-    public function index()
-    {
-        //
+    private SkillRepositoryInterface $skillRepository;
+    /**
+     * @var SkillValidator
+     */
+    private SkillValidator $skillValidator;
+
+    #[Pure] public function __construct(SkillRepositoryInterface $skillRepository) {
+        $this->skillRepository = $skillRepository;
+        $this->skillValidator = new SkillValidator;
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Skill
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function store(Request $request): Skill {
+        $data = $this->skillValidator->validate($request);
+        $skill = $this->skillRepository->create($data);
+        return $skill;
     }
 }

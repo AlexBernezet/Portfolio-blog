@@ -5,10 +5,10 @@ namespace App\Repositories;
 
 
 use App\Models\Skill;
+use App\Repositories\Interfaces\SkillRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
-use JetBrains\PhpStorm\Pure;
 
-class SkillRepository
+class SkillRepository implements SkillRepositoryInterface
 {
     public function create($data): Skill {
         $skill = new Skill($data);
